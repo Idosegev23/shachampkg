@@ -209,4 +209,176 @@ document.addEventListener('DOMContentLoaded', function() {
     animateElements.forEach(element => {
         observer.observe(element);
     });
+});
+
+// Back to top functionality
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Show/hide back to top button
+window.addEventListener('scroll', function() {
+    const backToTop = document.querySelector('.back-to-top');
+    if (window.pageYOffset > 100) {
+        backToTop.style.display = 'block';
+    } else {
+        backToTop.style.display = 'none';
+    }
+});
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Package tabs functionality
+document.querySelectorAll('.tab-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const targetTab = this.getAttribute('data-tab');
+        
+        // Remove active class from all tabs and content
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.package-tab-content').forEach(content => content.classList.remove('active'));
+        
+        // Add active class to clicked tab and corresponding content
+        this.classList.add('active');
+        document.getElementById(targetTab).classList.add('active');
+    });
+});
+
+// Package button click handlers
+document.querySelectorAll('.package-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const packageContent = this.closest('.package-tab-content');
+        const packageName = packageContent.querySelector('.package-name').textContent;
+        const packageSelect = document.getElementById('package');
+        
+        // Map package names to select values
+        const packageMap = {
+            'חבילת Starter AI': 'starter',
+            'חבילת Efficiency Pro': 'efficiency',
+            'חבילת Smart Office AI': 'smart-office',
+            'חבילת Enterprise': 'enterprise'
+        };
+        
+        packageSelect.value = packageMap[packageName] || '';
+        
+        // Scroll to contact form
+        document.getElementById('contact').scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Form submission
+document.querySelector('.contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
+    
+    // Validate required fields
+    if (!data.name || !data.phone || !data.email) {
+        alert('אנא מלא את כל השדות החובה');
+        return;
+    }
+    
+    try {
+        // Format package name
+        const packageNames = {
+            'starter': 'Starter AI - 1,200₪',
+            'efficiency': 'Efficiency Pro - 3,500₪',
+            'smart-office': 'Smart Office AI - 9,800₪',
+            'enterprise': 'Enterprise - 25,000₪',
+            'consultation': 'ייעוץ ראשוני'
+        };
+
+        const selectedPackage = packageNames[data.package] || 'לא נבחר';
+
+        // Prepare webhook data
+        const webhookData = {
+            name: data.name,
+            phone: data.phone,
+            email: data.email,
+            package: selectedPackage,
+            timestamp: new Date().toISOString(),
+            source: 'KA Shaham Landing Page'
+        };
+
+        // Send to both Make.com and Email server
+        const promises = [
+            // Send to Make.com webhook
+            fetch('https://hook.eu2.make.com/98h5wvl2h95w1wph3swguk62ahtjqoh1', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(webhookData)
+            }),
+            // Send to Email server
+            fetch('http://localhost:3001/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(webhookData)
+            })
+        ];
+
+        const results = await Promise.allSettled(promises);
+        
+        // Check results
+        const makeSuccess = results[0].status === 'fulfilled' && results[0].value.ok;
+        const emailSuccess = results[1].status === 'fulfilled' && results[1].value.ok;
+        
+        if (makeSuccess || emailSuccess) {
+            let message = 'תודה! הפנייה שלך נשלחה בהצלחה. נחזור אליך תוך 24 שעות.';
+            if (!makeSuccess && emailSuccess) {
+                message += '\n(נשלח באמצעות מייל)';
+            } else if (makeSuccess && !emailSuccess) {
+                message += '\n(נשלח באמצעות Make.com)';
+            }
+            alert(message);
+            this.reset();
+        } else {
+            throw new Error('Both services failed');
+        }
+        
+    } catch (error) {
+        console.error('Error:', error);
+        alert('שגיאה בשליחת הפנייה. אנא נסה שוב או צור קשר ישירות בטלפון 054-640-0839');
+    }
+});
+
+// FAQ toggle functionality
+document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', function() {
+        const answer = this.nextElementSibling;
+        const isVisible = answer.style.display === 'block';
+        
+        // Hide all answers
+        document.querySelectorAll('.faq-answer').forEach(ans => {
+            ans.style.display = 'none';
+        });
+        
+        // Show clicked answer if it wasn't visible
+        if (!isVisible) {
+            answer.style.display = 'block';
+        }
+    });
+});
+
+// Initialize - hide all FAQ answers
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.faq-answer').forEach(answer => {
+        answer.style.display = 'none';
+    });
 }); 

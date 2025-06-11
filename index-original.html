@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>פתרונות AI חכמים לסוכני ביטוח | KA × שחם אורלן</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2D90A6;
+            --primary-gradient: linear-gradient(135deg, #2D90A6 0%, #1e6b7a 100%);
+            --yellow-main: #F2D43D;
+            --yellow-dark: #D9AA1E;
+            --yellow-gradient: linear-gradient(135deg, #F2D43D 0%, #D9AA1E 100%);
+            --orange-light: #BF8415;
+            --orange-medium: #A66C26;
+            --orange-dark: #BF8A49;
+            --orange-gradient: linear-gradient(135deg, #BF8415 0%, #A66C26 100%);
+            --bg-light: #F2DA91;
+            --bg-medium: #BFAB93;
+            --text-dark: #0D0D0D;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --shadow-soft: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --shadow-hover: 0 15px 35px rgba(31, 38, 135, 0.47);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            direction: rtl;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Background Animations */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(242, 212, 67, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(45, 144, 166, 0.1) 0%, transparent 50%);
+            z-index: -2;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--white);
+            padding: 80px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Electronic Lines Animation */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(90deg, transparent 98%, rgba(45, 144, 166, 0.08) 100%),
+                linear-gradient(0deg, transparent 98%, rgba(45, 144, 166, 0.08) 100%),
+                linear-gradient(45deg, transparent 99%, rgba(242, 212, 67, 0.05) 100%);
+            background-size: 40px 40px, 80px 80px, 120px 120px;
+            animation: moveLines 25s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 25%, rgba(45, 144, 166, 0.02) 0%, transparent 40%),
+                radial-gradient(circle at 85% 75%, rgba(242, 212, 67, 0.02) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(191, 132, 21, 0.01) 0%, transparent 30%);
+            animation: floatBubbles 30s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes moveLines {
+            0% { 
+                transform: translate(0, 0) rotate(0deg);
+                background-size: 40px 40px, 80px 80px, 120px 120px;
+            }
+            25% { 
+                transform: translate(-5px, -8px) rotate(0.5deg);
+                background-size: 45px 45px, 85px 85px, 125px 125px;
+            }
+            50% { 
+                transform: translate(-10px, 5px) rotate(-0.5deg);
+                background-size: 35px 35px, 75px 75px, 115px 115px;
+            }
+            75% { 
+                transform: translate(5px, -3px) rotate(0.3deg);
+                background-size: 42px 42px, 82px 82px, 122px 122px;
+            }
+            100% { 
+                transform: translate(0, 0) rotate(0deg);
+                background-size: 40px 40px, 80px 80px, 120px 120px;
+            }
+        }
+
+        @keyframes floatBubbles {
+            0%, 100% { 
+                transform: translate(0, 0) scale(1);
+            }
+            33% { 
+                transform: translate(10px, -15px) scale(1.1);
+            }
+            66% { 
+                transform: translate(-8px, 12px) scale(0.9);
+            }
+        }
+
+        .hero-logos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-image {
+            max-width: 360px;
+            max-height: 180px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
+            transition: all 0.3s ease;
+        }
+
+        .logo-image:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-logos {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+            
+            .logo-image {
+                max-width: 300px;
+                max-height: 150px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+                line-height: 1.3;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+            line-height: 1.2;
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .subtitle {
+            font-size: 1.4rem;
+            color: var(--orange-medium);
+            margin-bottom: 40px;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            box-shadow: 0 6px 20px rgba(45, 144, 166, 0.3);
+            z-index: 2;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            background: var(--orange-medium);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(191, 132, 21, 0.4);
+        }
+
+
+
+        /* Packages Section */
+        .packages {
+            padding: 120px 0;
+            background: linear-gradient(180deg, var(--white) 0%, rgba(242, 218, 145, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .packages::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(45, 144, 166, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(242, 212, 67, 0.03) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .packages h2 {
+            text-align: center;
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .packages-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--orange-medium);
+            font-weight: 600;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Package Tabs */
+        .package-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            padding: 15px 30px;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .tab-button:hover::before,
+        .tab-button.active::before {
+            left: 0;
+        }
+
+        .tab-button:hover,
+        .tab-button.active {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Package Content */
+        .package-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .package-tab-content {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .package-tab-content.active {
+            display: block;
+        }
+
+        .package-display {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .package-info {
+            text-align: center;
+        }
+
+        .package-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .package-badge {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .package-badge.professional {
+            background: var(--yellow-gradient);
+        }
+
+        .package-badge.advanced {
+            background: var(--orange-gradient);
+        }
+
+        .package-badge.premium {
+            background: linear-gradient(135deg, var(--orange-dark) 0%, var(--primary-color) 100%);
+        }
+
+        .package-details {
+            text-align: right;
+        }
+
+        .features-section h4 {
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .package-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .price-section {
+            margin-bottom: 30px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .new-price {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .suitable-for {
+            background: rgba(242, 218, 145, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            color: var(--orange-medium);
+            font-weight: 600;
+            border: 1px solid rgba(191, 132, 21, 0.3);
+            margin-bottom: 0;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .package-features li {
+            padding: 15px 0;
+            padding-right: 30px;
+            position: relative;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .package-features li:last-child {
+            border-bottom: none;
+        }
+
+        .package-features li:before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            top: 15px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 18px;
+            width: 20px;
+            height: 20px;
+            background: rgba(45, 144, 166, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .package-features li:hover {
+            color: var(--primary-color);
+            transform: translateX(-5px);
+        }
+
+        .package-button {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            transition: all 0.4s ease;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .package-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .package-button:hover::before {
+            left: 100%;
+        }
+
+        .package-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Comparison Table */
+        .comparison {
+            padding: 120px 0;
+            background: linear-gradient(180deg, rgba(242, 218, 145, 0.1) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comparison::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(45, 144, 166, 0.03) 0%, transparent 70%),
+                radial-gradient(circle at 80% 80%, rgba(242, 212, 67, 0.03) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .comparison h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: var(--text-dark);
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            z-index: 2;
+        }
+
+        .comparison-table th {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 25px 15px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .comparison-table th:first-child {
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--primary-color) 100%);
+        }
+
+        .comparison-table th:nth-child(2) {
+            background: var(--primary-gradient);
+        }
+
+        .comparison-table th:nth-child(3) {
+            background: var(--yellow-gradient);
+        }
+
+        .comparison-table th:nth-child(4) {
+            background: var(--orange-gradient);
+        }
+
+        .comparison-table th:nth-child(5) {
+            background: linear-gradient(135deg, var(--orange-dark) 0%, var(--primary-color) 100%);
+        }
+
+        .comparison-table td {
+            padding: 20px 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 1.05rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(45, 144, 166, 0.05);
+            transform: scale(1.01);
+        }
+
+        .comparison-table td:first-child {
+            text-align: right;
+            font-weight: 700;
+            color: var(--text-dark);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .check-mark {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: bold;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .x-mark {
+            color: #ccc;
+            font-size: 1.4rem;
+            opacity: 0.6;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 120px 0;
+            background: linear-gradient(180deg, var(--white) 0%, rgba(242, 218, 145, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faq::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 15% 15%, rgba(45, 144, 166, 0.03) 0%, transparent 60%),
+                radial-gradient(circle at 85% 85%, rgba(242, 212, 67, 0.03) 0%, transparent 60%);
+            z-index: 0;
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 70px;
+            color: var(--text-dark);
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .faq-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            margin-bottom: 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .faq-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-gradient);
+            transition: left 0.4s ease;
+        }
+
+        .faq-item:hover::before {
+            left: 0;
+        }
+
+        .faq-question {
+            padding: 30px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            color: var(--text-dark);
+        }
+
+        .faq-question::after {
+            content: '+';
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--primary-color);
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 30px 30px;
+            color: var(--orange-medium);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Contact Form */
+        .contact {
+            padding: 120px 0;
+            background: linear-gradient(180deg, rgba(242, 218, 145, 0.1) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(45, 144, 166, 0.03) 0%, transparent 60%),
+                radial-gradient(circle at 75% 75%, rgba(242, 212, 67, 0.03) 0%, transparent 60%);
+            z-index: 0;
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: var(--text-dark);
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            z-index: 2;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(13, 13, 13, 0.6);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(45, 144, 166, 0.15);
+        }
+
+        .submit-button {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .submit-button:hover::before {
+            left: 100%;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-item {
+            margin: 10px;
+        }
+
+        .footer-item i {
+            margin-left: 10px;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(45, 144, 166, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: #236f82;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .package-tabs {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .tab-button {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            .package-display {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 30px;
+            }
+
+            .package-info {
+                text-align: center;
+            }
+
+            .package-details {
+                text-align: right;
+            }
+
+            .hero-logos {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .collaboration-text {
+                order: 3;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px 5px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .package-card,
+        .faq-item {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .package-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .package-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .package-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero" id="top">
+        <div class="container">
+            <div class="hero-logos">
+                <div class="logo-container">
+                    <img src="./public/images/Logo_KA.webp" alt="לוגו KA" class="logo-image">
+                </div>
+                <div class="logo-container">
+                    <img src="./public/images/logo_shaham.webp" alt="לוגו שחם אורלן" class="logo-image">
+                </div>
+            </div>
+            <h1>המשרד שלך מוכן ל-AI?<br>פתרונות חכמים לסוכני ביטוח<br>בשיתוף KA × שחם אורלן</h1>
+            <p class="subtitle">הפוך את מה שלמדת בסדנה למערכת שעובדת בשבילך – במחיר מיוחד לזמן מוגבל</p>
+            <a href="#contact" class="cta-button">בואו נתחיל</a>
+        </div>
+    </section>
+
+
+
+    <!-- Packages Section -->
+    <section class="packages" id="packages">
+        <div class="container">
+            <h2>החבילות שלנו</h2>
+            <p class="packages-subtitle">בחר את החבילה המתאימה לך</p>
+            
+            <!-- Package Tabs Navigation -->
+            <div class="package-tabs">
+                <button class="tab-button active" data-tab="starter">Starter AI</button>
+                <button class="tab-button" data-tab="efficiency">Efficiency Pro</button>
+                <button class="tab-button" data-tab="smart-office">Smart Office AI</button>
+                <button class="tab-button" data-tab="enterprise">Enterprise</button>
+            </div>
+
+            <!-- Package Content -->
+            <div class="package-content">
+                <!-- Starter AI Package -->
+                <div class="package-tab-content active" id="starter">
+                    <div class="package-display">
+                        <div class="package-info">
+                            <div class="package-header">
+                                <h3 class="package-name">חבילת Starter AI</h3>
+                                <div class="package-badge">מתחילים</div>
+                            </div>
+                            <div class="price-section">
+                                <div class="old-price">מחיר רגיל: 1,500 ₪ + מע"מ</div>
+                                <div class="new-price">1,200 ₪ + מע"מ</div>
+                            </div>
+                            <div class="suitable-for">התחלה ממוקדת לסוכנים יחידים</div>
+                        </div>
+                        <div class="package-details">
+                            <div class="features-section">
+                                <h4>מה כלול בחבילה:</h4>
+                                <ul class="package-features">
+                                    <li>פגישת ייעוץ + ניתוח תהליך</li>
+                                    <li>2 כלי אוטומציה</li>
+                                    <li>3 טמפלטים חכמים</li>
+                                    <li>בוט WhatsApp בסיסי</li>
+                                    <li>דשבורד פשוט</li>
+                                </ul>
+                            </div>
+                            <button class="package-button">מעוניין בחבילה הזו</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Efficiency Pro Package -->
+                <div class="package-tab-content" id="efficiency">
+                    <div class="package-display">
+                        <div class="package-info">
+                            <div class="package-header">
+                                <h3 class="package-name">חבילת Efficiency Pro</h3>
+                                <div class="package-badge professional">מקצועי</div>
+                            </div>
+                            <div class="price-section">
+                                <div class="old-price">מחיר רגיל: 4,200 ₪ + מע"מ</div>
+                                <div class="new-price">3,500 ₪ + מע"מ</div>
+                            </div>
+                            <div class="suitable-for">סוכנים עם תהליכים קבועים</div>
+                        </div>
+                        <div class="package-details">
+                            <div class="features-section">
+                                <h4>מה כלול בחבילה:</h4>
+                                <ul class="package-features">
+                                    <li>אפיון 4 תהליכים</li>
+                                    <li>4 אוטומציות (Make, GPT, WhatsApp)</li>
+                                    <li>טמפלטים מותאמים לעולם הביטוח</li>
+                                    <li>אינטגרציה לחשבונית ירוקה ו-CRM</li>
+                                    <li>הדרכת צוות וליווי מלא לחודש</li>
+                                </ul>
+                            </div>
+                            <button class="package-button">מעוניין בחבילה הזו</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smart Office AI Package -->
+                <div class="package-tab-content" id="smart-office">
+                    <div class="package-display">
+                        <div class="package-info">
+                            <div class="package-header">
+                                <h3 class="package-name">חבילת Smart Office AI</h3>
+                                <div class="package-badge advanced">מתקדם</div>
+                            </div>
+                            <div class="price-section">
+                                <div class="old-price">מחיר רגיל: 11,800 ₪ + מע"מ</div>
+                                <div class="new-price">9,800 ₪ + מע"מ</div>
+                            </div>
+                            <div class="suitable-for">סוכנויות עם צוות ונפח גבוה</div>
+                        </div>
+                        <div class="package-details">
+                            <div class="features-section">
+                                <h4>מה כלול בחבילה:</h4>
+                                <ul class="package-features">
+                                    <li>אפיון מלא</li>
+                                    <li>8+ תהליכים אוטומטיים</li>
+                                    <li>עוזר דיגיטלי מבוסס GPT</li>
+                                    <li>WhatsApp מתקדם</li>
+                                    <li>CRM מותאם</li>
+                                    <li>תחזיות ודוחות</li>
+                                    <li>הדרכות לצוות</li>
+                                </ul>
+                            </div>
+                            <button class="package-button">מעוניין בחבילה הזו</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enterprise Package -->
+                <div class="package-tab-content" id="enterprise">
+                    <div class="package-display">
+                        <div class="package-info">
+                            <div class="package-header">
+                                <h3 class="package-name">חבילת Enterprise</h3>
+                                <div class="package-badge premium">פרימיום</div>
+                            </div>
+                            <div class="price-section">
+                                <div class="old-price">מחיר רגיל: 31,000 ₪ + מע"מ</div>
+                                <div class="new-price">25,000 ₪ + מע"מ</div>
+                            </div>
+                            <div class="suitable-for">משרדים וארגונים עם צרכים רחבים</div>
+                        </div>
+                        <div class="package-details">
+                            <div class="features-section">
+                                <h4>מה כלול בחבילה:</h4>
+                                <ul class="package-features">
+                                    <li>אפיון ארגוני מלא</li>
+                                    <li>מערכת מותאמת אישית (Next.js + Supabase + GPT-4)</li>
+                                    <li>אפליקציה ניידת</li>
+                                    <li>בוט WhatsApp חכם</li>
+                                    <li>אינטגרציה לכל מערכת צד שלישי</li>
+                                    <li>ניהול, בקרה, אבטחה והדרכות</li>
+                                </ul>
+                            </div>
+                            <button class="package-button">מעוניין בחבילה הזו</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison">
+        <div class="container">
+            <h2>השוואת חבילות</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>יכולת</th>
+                        <th>Starter AI</th>
+                        <th>Efficiency Pro</th>
+                        <th>Smart Office AI</th>
+                        <th>Enterprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>בוט WhatsApp</strong></td>
+                        <td><span class="check-mark">✓</span> בסיסי</td>
+                        <td><span class="check-mark">✓</span> מתקדם</td>
+                        <td><span class="check-mark">✓</span> מתקדם</td>
+                        <td><span class="check-mark">✓</span> חכם</td>
+                    </tr>
+                    <tr>
+                        <td><strong>אינטגרציה CRM</strong></td>
+                        <td><span class="x-mark">✕</span></td>
+                        <td><span class="check-mark">✓</span></td>
+                        <td><span class="check-mark">✓</span> מותאם</td>
+                        <td><span class="check-mark">✓</span> מלא</td>
+                    </tr>
+                    <tr>
+                        <td><strong>טמפלטים</strong></td>
+                        <td>3</td>
+                        <td>מותאמים לביטוח</td>
+                        <td>מותאמים לביטוח</td>
+                        <td>אישיים</td>
+                    </tr>
+                    <tr>
+                        <td><strong>הדרכת צוות</strong></td>
+                        <td><span class="x-mark">✕</span></td>
+                        <td><span class="check-mark">✓</span> חודש</td>
+                        <td><span class="check-mark">✓</span> מלא</td>
+                        <td><span class="check-mark">✓</span> מלא</td>
+                    </tr>
+                    <tr>
+                        <td><strong>מספר אוטומציות</strong></td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>8+</td>
+                        <td>ללא הגבלה</td>
+                    </tr>
+                    <tr>
+                        <td><strong>אפליקציה ניידת</strong></td>
+                        <td><span class="x-mark">✕</span></td>
+                        <td><span class="x-mark">✕</span></td>
+                        <td><span class="x-mark">✕</span></td>
+                        <td><span class="check-mark">✓</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2>שאלות נפוצות</h2>
+            <div class="faq-item">
+                <div class="faq-question">האם צריך ידע טכני?</div>
+                <div class="faq-answer">לא! המערכות שלנו מותאמות למשתמשים ללא רקע טכני. אנחנו מספקים הדרכה מלאה והתמיכה שלנו זמינה תמיד.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">כמה זמן לוקח ההטמעה?</div>
+                <div class="faq-answer">תלוי בחבילה: Starter AI - שבוע, Efficiency Pro - 2-3 שבועות, Smart Office AI - חודש, Enterprise - 2-3 חודשים.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">האם זה מתאים גם למי שאין CRM?</div>
+                <div class="faq-answer">בהחלט! אנחנו יכולים לעבוד עם כל מערכת קיימת או לספק פתרון CRM מובנה כחלק מהחבילה.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">האם ניתן לשלב את זה עם תוכנות קיימות?</div>
+                <div class="faq-answer">כן! אנחנו מתמחים באינטגרציה עם מערכות קיימות כמו חשבונית ירוקה, מערכות CRM וכל תוכנה אחרת שאתם משתמשים בה.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>רוצה שנמצא יחד את החבילה שמתאימה לך?</h2>
+            <form class="contact-form" action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">שם מלא</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">טלפון</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">אימייל</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="package">החבילה שמעניינת אותי</label>
+                    <select id="package" name="package" required>
+                        <option value="">בחר חבילה</option>
+                        <option value="starter">Starter AI</option>
+                        <option value="efficiency">Efficiency Pro</option>
+                        <option value="smart-office">Smart Office AI</option>
+                        <option value="enterprise">Enterprise</option>
+                        <option value="consultation">רוצה ייעוץ ראשוני</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-button">שלחו לי פרטים</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-item">
+                    <strong>📍 כתובת:</strong> בית מגדל, היצירה 3, פתח תקווה
+                </div>
+                <div class="footer-item">
+                    <strong>📞 נייד:</strong> 054-640-0839
+                </div>
+                <div class="footer-item">
+                    <strong>✉️ אימייל:</strong> meravn@shaham-orlan.co.il
+                </div>
+                <div class="footer-item">
+                    <strong>📱 WhatsApp:</strong> 054-640-0839
+                </div>
+            </div>
+            <p>&copy; 2024 KA × שחם אורלן - כל הזכויות שמורות</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Back to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide back to top button
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 100) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Package tabs functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetTab = this.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.package-tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                this.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        // Package button click handlers
+        document.querySelectorAll('.package-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const packageContent = this.closest('.package-tab-content');
+                const packageName = packageContent.querySelector('.package-name').textContent;
+                const packageSelect = document.getElementById('package');
+                
+                // Map package names to select values
+                const packageMap = {
+                    'חבילת Starter AI': 'starter',
+                    'חבילת Efficiency Pro': 'efficiency',
+                    'חבילת Smart Office AI': 'smart-office',
+                    'חבילת Enterprise': 'enterprise'
+                };
+                
+                packageSelect.value = packageMap[packageName] || '';
+                
+                // Scroll to contact form
+                document.getElementById('contact').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Validate required fields
+            if (!data.name || !data.phone || !data.email) {
+                alert('אנא מלא את כל השדות החובה');
+                return;
+            }
+            
+            try {
+                // Format package name
+                const packageNames = {
+                    'starter': 'Starter AI - 1,200₪',
+                    'efficiency': 'Efficiency Pro - 3,500₪',
+                    'smart-office': 'Smart Office AI - 9,800₪',
+                    'enterprise': 'Enterprise - 25,000₪',
+                    'consultation': 'ייעוץ ראשוני'
+                };
+
+                const selectedPackage = packageNames[data.package] || 'לא נבחר';
+
+                // Prepare webhook data
+                const webhookData = {
+                    name: data.name,
+                    phone: data.phone,
+                    email: data.email,
+                    package: selectedPackage,
+                    timestamp: new Date().toISOString(),
+                    source: 'KA Shaham Landing Page'
+                };
+
+                // Send to both Make.com and Email server
+                const promises = [
+                    // Send to Make.com webhook
+                    fetch('https://hook.eu2.make.com/98h5wvl2h95w1wph3swguk62ahtjqoh1', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(webhookData)
+                    }),
+                    // Send to Email server
+                    fetch('http://localhost:3001/send-email', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(webhookData)
+                    })
+                ];
+
+                const results = await Promise.allSettled(promises);
+                
+                // Check results
+                const makeSuccess = results[0].status === 'fulfilled' && results[0].value.ok;
+                const emailSuccess = results[1].status === 'fulfilled' && results[1].value.ok;
+                
+                if (makeSuccess || emailSuccess) {
+                    let message = 'תודה! הפנייה שלך נשלחה בהצלחה. נחזור אליך תוך 24 שעות.';
+                    if (!makeSuccess && emailSuccess) {
+                        message += '\n(נשלח באמצעות מייל)';
+                    } else if (makeSuccess && !emailSuccess) {
+                        message += '\n(נשלח באמצעות Make.com)';
+                    }
+                    alert(message);
+                    this.reset();
+                } else {
+                    throw new Error('Both services failed');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('שגיאה בשליחת הפנייה. אנא נסה שוב או צור קשר ישירות בטלפון 054-640-0839');
+            }
+        });
+
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const isVisible = answer.style.display === 'block';
+                
+                // Hide all answers
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    ans.style.display = 'none';
+                });
+                
+                // Show clicked answer if it wasn't visible
+                if (!isVisible) {
+                    answer.style.display = 'block';
+                }
+            });
+        });
+
+        // Initialize - hide all FAQ answers
+        document.querySelectorAll('.faq-answer').forEach(answer => {
+            answer.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
