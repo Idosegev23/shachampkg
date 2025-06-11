@@ -9,9 +9,5 @@
       "source": "/send-email",
       "destination": "/api/send-email"
     }
-  ],
-  "env": {
-    "EMAIL_USER": "@email_user",
-    "EMAIL_PASS": "@email_pass"
-  }
+  ]
 } 
