@@ -100,12 +100,6 @@ vercel dev
 - Environment variables setup
 - CORS handling
 
-## 📞 יצירת קשר
-
-- **מייל:** meravn@shaham-orlan.co.il
-- **טלפון:** 054-640-0839
-- **אתר:** שחם אורלן פתרונות דיגיטליים
-
 ---
 
 **© 2024 KA × שחם אורלן. כל הזכויות שמורות.** 
